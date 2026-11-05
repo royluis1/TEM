@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cuidate Online – Guía contra estafas</title>
+<style>
+:root{--bg:#fbf8f2;--card:#fff;--text:#1d1d1b;--muted:#4a4a45;--primary:#0b5cab;--onprimary:#fff;--bad:#a8211a;--badbg:#fdeceb;--good:#17653a;--goodbg:#e8f5ec;--line:#d9d3c7;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#16171a;--card:#202226;--text:#f3f1ea;--muted:#cfcbc0;--primary:#7db7f2;--onprimary:#0b1a2a;--bad:#ff9a92;--badbg:#3a1f1d;--good:#86d6a3;--goodbg:#173022;--line:#3a3d43;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#16171a;--card:#202226;--text:#f3f1ea;--muted:#cfcbc0;--primary:#7db7f2;--onprimary:#0b1a2a;--bad:#ff9a92;--badbg:#3a1f1d;--good:#86d6a3;--goodbg:#173022;--line:#3a3d43;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:112.5%}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Georgia,"Times New Roman",serif;line-height:1.6}
+.wrap{max-width:760px;margin:0 auto;padding:18px 18px 60px}
+h1,h2,h3{font-family:"Trebuchet MS",Verdana,Arial,sans-serif;line-height:1.2;margin:0 0 .5em}
+h1{font-size:2.1rem}h2{font-size:1.5rem;margin-top:1.5em}h3{font-size:1.2rem}
+p{margin:.5em 0 1em}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+button,.btn{font:800 1.05rem "Trebuchet MS",Verdana,sans-serif;padding:14px 20px;border-radius:14px;border:3px solid var(--primary);background:var(--primary);color:var(--onprimary);cursor:pointer;min-height:54px;text-decoration:none;display:inline-block}
+button.alt,.btn.alt{background:var(--card);color:var(--primary)}
+a:focus,button:focus{outline:4px solid var(--primary);outline-offset:2px}
+.hero{background:var(--primary);color:var(--onprimary);border-radius:18px;padding:24px 22px;margin:16px 0}
+.hero h2{margin-top:0}.hero p{font-size:1.1rem;margin:0}
+.lvl{display:block;background:var(--card);border:3px solid var(--line);border-radius:18px;padding:18px 20px;margin:14px 0;color:var(--text);text-decoration:none}
+.lvl:hover,.lvl:focus{border-color:var(--primary)}
+.lvl .n{display:inline-block;background:var(--primary);color:var(--onprimary);font:800 1rem "Trebuchet MS",Verdana,sans-serif;border-radius:999px;padding:4px 14px;margin-bottom:8px}
+.lvl h3{margin-bottom:.2em}.lvl p{margin:0;color:var(--muted)}
+.rule{display:grid;gap:10px;margin:12px 0}
+.rule div{background:var(--card);border:3px solid var(--primary);border-radius:16px;padding:14px 18px}
+.rule b{display:block;font:800 1.35rem "Trebuchet MS",Verdana,sans-serif;color:var(--primary)}
+.card{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:16px 20px;margin:14px 0}
+.tag{display:inline-block;background:var(--badbg);color:var(--bad);font:700 .9rem "Trebuchet MS",Verdana,sans-serif;padding:3px 10px;border-radius:999px;margin-bottom:8px}
+.do{background:var(--goodbg);border-left:6px solid var(--good);padding:10px 14px;border-radius:8px;margin-top:10px}
+.do b{color:var(--good)}
+ul{padding-left:1.2em}li{margin:.45em 0}
+.quiz{background:var(--card);border:3px solid var(--line);border-radius:18px;padding:20px}
+.q{font-size:1.15rem;font-weight:700;margin-bottom:14px;word-break:break-word}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.fb{margin-top:14px;padding:14px 16px;border-radius:12px}
+.fb.ok{background:var(--goodbg);border:2px solid var(--good)}
+.fb.no{background:var(--badbg);border:2px solid var(--bad)}
+.meta{color:var(--muted);font-size:.95rem}
+.url{font-family:Consolas,Menlo,monospace;background:var(--card);border:2px solid var(--line);border-radius:10px;padding:12px;word-break:break-all;margin:10px 0}
+.url mark{background:var(--goodbg);color:var(--text);border:2px solid var(--good);border-radius:6px;padding:0 4px}
+.help{background:var(--goodbg);border:2px solid var(--good);border-radius:16px;padding:6px 20px 12px;margin-top:26px}
+footer{margin-top:36px;color:var(--muted);font-size:.95rem;border-top:2px solid var(--line);padding-top:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <strong style="font:800 1.2rem 'Trebuchet MS',Verdana,sans-serif">🛡️ Cuidate Online</strong>
+    <button class="alt" id="bigger" type="button">A+ Letra más grande</button>
+  </div>
+  <main id="app"></main>
+  <footer>Vista previa. Próximamente: videos cortos con voz y botón para compartir con la familia.</footer>
+</div>
+<script>
+(function(){
+var L={
+"nivel-1":{n:1,t:"Nivel 1 · Lo básico",sub:"Para quien casi no usa el celular",
+intro:"Tres ideas alcanzan para protegerte de la mayoría de los engaños. Leelas despacio, no hay apuro.",
+tips:["Si alguien te apura, <b>cortá</b>. Las urgencias son casi siempre trampa.","Nunca digas a nadie tus <b>claves</b>, el número de tu tarjeta ni los <b>códigos</b> que te llegan por mensaje.","Ante la duda, llamá vos a un familiar de confianza <b>antes</b> de hacer algo."],
+scams:[
+["Llamada falsa","“Lo llamamos del banco”","Dicen que hubo un movimiento raro en tu cuenta y te piden claves o que pases la plata “a una cuenta segura”.","Cortá. El banco nunca te pide claves ni te hace mover dinero. Llamá vos al número de tu tarjeta."],
+["Familiar en apuros","“Abuela, estoy en problemas”","Alguien finge ser tu nieto, hijo o abogado, pide plata urgente y que no le cuentes a nadie.","Cortá y llamá vos a tu familiar a su número de siempre. Acuerden una <b>palabra secreta</b> en la familia."],
+["WhatsApp","“Te mandé un código por error”","Te piden que les reenvíes un código de 6 números. Con eso se quedan con tu WhatsApp.","Nunca compartas códigos que te lleguen por mensaje, ni con conocidos."],
+["Premio falso","“¡Ganaste un televisor!”","Te mandan un mensaje o llaman para decirte que ganaste algo, pero tenés que pagar o dar datos.","Nadie regala premios por mensaje. Borrá el mensaje."],
+["En la puerta","“Soy de la empresa de luz o gas”","Una persona llega a tu casa con un chaleco o una credencial y quiere entrar “a revisar”.","No lo dejes pasar. Llamá vos a la empresa o a un familiar. Una empresa real avisa antes."],
+["En el cajero","El “amable” que te ayuda","Alguien se ofrece a ayudarte en el cajero y se queda con tu tarjeta o mira tu clave.","No le des la tarjeta ni la clave a nadie. Si dudás, andá al mostrador del banco."],
+["Falso reintegro","“La jubilación te debe plata”","Te llaman diciendo que sos de ANSES o de un ente del Estado y que te corresponde un dinero.","Cortá. Los trámites reales no se hacen por teléfono pidiéndote claves ni cuentas."]],
+quiz:[
+["Te llaman del banco y te piden el código que te llegó por mensaje para “cancelar una compra”.",1,"El banco nunca pide códigos. Cortá y llamá vos."],
+["Tu nieto te escribe de un número nuevo: “Abuela, perdí el celular, mandame plata ya”.",1,"Es un engaño muy común. Llamá a tu nieto a su número de siempre."],
+["Un vecino que conocés de toda la vida te toca timbre y te devuelve una herramienta prestada.",0,"No pide nada ni te apura. Es normal."],
+["Alguien en el cajero se ofrece a ayudarte y te pide la tarjeta.",1,"Nunca des la tarjeta. Pedí ayuda a un empleado del banco."]]},
+"nivel-2":{n:2,t:"Nivel 2 · Intermedio",sub:"Para quien ya usa WhatsApp y el homebanking",
+intro:"Ya te manejás con el celular. Ahora aprendé a ver las trampas que llegan por mensajes, compras y redes.",
+tips:["No toques enlaces de mensajes que no esperabas. Entrá vos a la página o app oficial.","Activá la <b>verificación en dos pasos</b> en WhatsApp y en tu correo.","Usá una clave <b>distinta</b> para el banco, el correo y las redes. Una frase larga es mejor que tu fecha de nacimiento.","Bajá aplicaciones solo de la tienda oficial y mantené el celular actualizado."],
+scams:[
+["SMS o mensaje","“Tu paquete está retenido”","Te mandan un enlace para “reprogramar la entrega” o pagar una tasa. La página es falsa y copia tus datos.","No toques el enlace. Si esperás algo, mirá el seguimiento en la página oficial del correo o la tienda."],
+["Compra y venta","Comprobante de pago falso","Alguien te compra algo y te muestra una captura de que pagó. El dinero nunca llega.","Antes de entregar nada, confirmá que la plata esté en <b>tu</b> cuenta, no en la captura."],
+["Inversiones","“Duplicá tu plata en una semana”","Un conocido o un anuncio promete ganancias enormes y seguras. Al principio te “devuelven” algo para que confíes.","Ninguna inversión segura promete ganancias altísimas. Consultá en tu banco antes."],
+["Redes sociales","Amor o amistad que pide plata","Alguien que conociste hace poco por internet te cuenta un problema y pide ayuda económica.","Si nunca lo viste en persona y pide plata, es señal de alarma. Hablalo con tu familia."],
+["WhatsApp","Un contacto tuyo te pide plata","Le robaron el WhatsApp a un amigo y desde su cuenta le piden dinero a todos.","Llamalo por teléfono para confirmar antes de transferir."],
+["Código QR","QR falso pegado arriba del real","En comercios o carteles pegan un QR falso sobre el verdadero para desviar tu pago.","Fijate que el QR no sea un sticker pegado y que el nombre que aparece al pagar sea el del comercio."],
+["Soporte técnico","“Tu computadora tiene virus”","Una ventana o llamada te dice que estás infectado y te pide instalar un programa para “arreglarlo”.","Cerrá la ventana. Ninguna empresa te llama por tu computadora. Nunca instales programas que te pidan."],
+["Wi-Fi público","La red gratis de la plaza o el bar","En redes abiertas pueden espiar lo que hacés.","No entres al banco con Wi-Fi público. Usá los datos de tu celular."]],
+quiz:[
+["Recibís un SMS: “Tu envío está retenido, pagá $900 acá” con un enlace raro.",1,"Es phishing. No toques el enlace."],
+["Vendés un sillón y el comprador te manda una captura de la transferencia. Todavía no ves la plata en tu cuenta.",1,"No entregues nada hasta ver la plata en tu cuenta. Las capturas se falsifican."],
+["Tu banco te avisa por la app oficial, que abrís vos, que actualizaron los términos. No te piden nada más.",0,"Si lo ves en la app oficial y no te piden claves, es normal."],
+["Una persona que conociste hace dos semanas por internet te pide plata para un “problema urgente”.",1,"Es una estafa muy común. No transfieras."]]},
+"nivel-3":{n:3,t:"Nivel 3 · Avanzado",sub:"Para quien quiere verificar páginas y mails por su cuenta",
+intro:"Aprendé a revisar si una página, un mail o una app son confiables antes de poner tus datos.",
+extra:"<h2>Cómo leer una dirección web</h2><p>El <b>dominio real</b> es lo que está justo antes de la primera barra “/”. Leé de derecha a izquierda desde ahí.</p><div class=\"url\">https://www.<mark>mercadolibre.com.ar</mark>/ofertas</div><p>Eso es una dirección oficial. En cambio, en esta el dominio real es <b>pagos-seguros.net</b>:</p><div class=\"url\">https://mercadolibre.com.ar.<mark>pagos-seguros.net</mark>/ingresar</div><p>El <b>candado</b> solo indica que la conexión está cifrada. Las páginas falsas también lo tienen, así que <b>no alcanza</b>.</p>",
+tips:["Escribí vos la dirección o usá tus favoritos, en lugar de entrar desde un enlace recibido.","Desconfiá de letras parecidas (como “rn” en vez de “m”) y de direcciones con guiones de más.","Los primeros resultados de un buscador pueden ser anuncios falsos. Fijate que diga “Anuncio” y revisá el dominio.","Usá un <b>gestor de claves</b> y verificación en dos pasos con una app, no solo por SMS.","Revisá desde “Dispositivos vinculados” (WhatsApp) y en tu correo qué sesiones están abiertas.","En apps nuevas, mirá los permisos: una linterna no necesita tus contactos."],
+scams:[
+["Dominios parecidos","El sitio “casi igual” al del banco","Copian la página completa y cambian una letra o la terminación de la dirección.","Compará el dominio letra por letra con el que figura en tu tarjeta o en la app oficial."],
+["Buscadores","Anuncio patrocinado falso","Un anuncio arriba de los resultados te lleva a una copia de la página oficial.","Entrá desde tus favoritos o desde la app oficial."],
+["Correo","Mail con remitente y adjunto falso","El nombre se ve bien, pero la dirección real del remitente es otra. El adjunto instala un virus.","Mirá la dirección completa de quien envía. No abras adjuntos que no esperabas."],
+["Inteligencia artificial","Voz o video clonado","Con unos segundos de audio pueden imitar la voz de un familiar o un conocido.","Cortá y llamá a ese número de siempre. Preguntá algo que solo esa persona sepa."],
+["Apps falsas","Aplicación que pide demasiados permisos","Imitan apps conocidas para leer mensajes y robar códigos.","Instalá solo desde la tienda oficial, mirá quién la publica y revisá las opiniones."],
+["Tiendas falsas","Ofertas demasiado buenas","Páginas nuevas con precios muy bajos que solo aceptan transferencia.","Buscá opiniones externas y fijate si te dejan pagar con tarjeta de crédito."]],
+quiz:[
+["¿Esta dirección es la verdadera? https://www.mercadolibre.com.ar/ofertas",0,"El dominio es mercadolibre.com.ar. Es la oficial."],
+["¿Y esta? https://mercadolibre.com.ar.pagos-seguros.net/ingresar",1,"El dominio real es pagos-seguros.net. Usa el nombre conocido solo como señuelo."],
+["¿Y esta? https://www.arca.gob.ar",0,"Es el dominio oficial (gob.ar) de ARCA."],
+["¿Y esta? https://correoargentino-envios.com/seguimiento",1,"Es un dominio ajeno al oficial, que es correoargentino.com.ar."]]}
+};
+var app=document.getElementById("app"),qi=0,done=false,cur=null;
+function esc(s){return s}
+function home(){
+app.innerHTML='<h1>Cuidate Online</h1><div class="hero"><h2>No es tu culpa. Los estafadores son profesionales.</h2><p>Elegí el nivel que más se parezca a vos. Podés cambiar cuando quieras.</p></div>'+
+Object.keys(L).map(function(k){var v=L[k];return '<a class="lvl" href="#'+k+'"><span class="n">Nivel '+v.n+'</span><h3>'+v.t.split(" · ")[1]+'</h3><p>'+v.sub+'</p></a>'}).join("")+
+'<h2>La regla de oro para todos</h2><div class="rule"><div><b>1. Pará</b>Si te apuran o te asustan, es mala señal.</div><div><b>2. Pensá</b>¿Alguien te pide plata, una clave o un código? Un banco real no.</div><div><b>3. Preguntá</b>Cortá y llamá vos a un familiar o al número oficial.</div></div>';
+}
+function level(k){
+var v=L[k];cur=v;qi=0;
+app.innerHTML='<p><a class="btn alt" href="#inicio">← Volver al inicio</a></p><h1>'+v.t+'</h1><p class="meta">'+v.sub+'</p><div class="hero"><p>'+v.intro+'</p></div>'+
+(v.extra||"")+
+'<h2>Lo más importante</h2><ul>'+v.tips.map(function(t){return '<li>'+t+'</li>'}).join("")+'</ul>'+
+'<h2>Estafas que tenés que conocer</h2>'+
+v.scams.map(function(s){return '<article class="card"><span class="tag">'+s[0]+'</span><h3>'+s[1]+'</h3><p>'+s[2]+'</p><div class="do"><b>Qué hacer:</b> '+s[3]+'</div></article>'}).join("")+
+'<h2>Probate: ¿es estafa o no?</h2><div class="quiz" aria-live="polite"><p class="meta" id="cnt"></p><div class="q" id="qq"></div><div class="btns" id="ch"><button type="button" data-a="1">Es estafa</button><button type="button" class="alt" data-a="0">Parece seguro</button></div><div id="fb"></div><div class="btns" style="margin-top:14px"><button type="button" id="nx" hidden>Siguiente</button></div></div>'+
+'<div class="help"><h2 style="margin-top:.8em">Si ya caíste, no te quedes callado</h2><ul><li>Llamá enseguida a tu banco al número oficial y pedí bloquear tarjetas y cuentas.</li><li>Cambiá tus claves desde un dispositivo de confianza.</li><li>Hacé la denuncia y contale a un familiar. Pedir ayuda rápido ayuda mucho.</li></ul></div>'+
+'<p style="margin-top:22px"><a class="btn" href="#inicio">← Elegir otro nivel</a></p>';
+showQ();
+}
+function showQ(){
+done=false;var q=cur.quiz[qi];
+document.getElementById("cnt").textContent="Pregunta "+(qi+1)+" de "+cur.quiz.length;
+document.getElementById("qq").textContent=q[0];
+document.getElementById("fb").innerHTML="";document.getElementById("nx").hidden=true;
+}
+app.addEventListener("click",function(e){
+var b=e.target.closest("button");if(!b||!cur)return;
+if(b.dataset.a!==undefined&&!done){
+done=true;var q=cur.quiz[qi],ok=Number(b.dataset.a)===q[1];
+document.getElementById("fb").innerHTML='<div class="fb '+(ok?"ok":"no")+'"><b>'+(ok?"¡Muy bien! ":"Cuidado. ")+'</b>'+q[2]+'</div>';
+var nx=document.getElementById("nx");nx.hidden=false;nx.textContent=qi<cur.quiz.length-1?"Siguiente":"Volver a empezar";nx.focus();
+}else if(b.id==="nx"){qi=(qi+1)%cur.quiz.length;showQ();}
+});
+function route(){
+var h=(location.hash||"").slice(1);cur=null;
+if(L[h])level(h);else home();
+window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",route);route();
+var size=112.5;
+document.getElementById("bigger").addEventListener("click",function(){size=size>=150?112.5:size+12.5;document.documentElement.style.fontSize=size+"%"});
+})();
+</script>
+</body>
+</html>
