@@ -70,7 +70,7 @@ scams:[
 ["En el cajero","El “amable” que te ayuda","Alguien se ofrece a ayudarte en el cajero y se queda con tu tarjeta o mira tu clave.","No le des la tarjeta ni la clave a nadie. Si dudás, andá al mostrador del banco."],
 ["Falso reintegro","“La jubilación te debe plata”","Te llaman diciendo que sos de ANSES o de un ente del Estado y que te corresponde un dinero.","Cortá. Los trámites reales no se hacen por teléfono pidiéndote claves ni cuentas."]],
 quiz:[
-["Te llaman del banco y te piden el código que te llegó por mensaje para “cancelar una compra”.",1,"El banco nunca pide códigos. Cortá y llamá vos."],
+['¿Para qué sirve la pantalla de inicio del celular?',0,'Desde ahí abrís las aplicaciones y las funciones del celular.',['Para acceder a aplicaciones y funciones.','Para cargar la batería.','Para apagar internet.']],['¿Qué significa deslizar el dedo por la pantalla?',0,'Es mover el contenido para desplazarte, por ejemplo hacia abajo en una lista.',['Mover el contenido para desplazarse.','Eliminar todas las aplicaciones.','Apagar el teléfono.']],['¿Qué permite conectarse a internet?',0,'El celular se conecta con Wi-Fi o con datos móviles.',['Wi-Fi o datos móviles.','La cámara únicamente.','El volumen del teléfono.']],['¿Qué es una aplicación?',0,'Una aplicación (o app) es un programa que sirve para hacer una tarea, como mandar mensajes.',['Un programa que permite realizar una tarea.','Un cable para cargar el celular.','Una parte de la pantalla.']],['¿Para qué sirve un navegador?',0,'El navegador te permite visitar páginas web.',['Para visitar páginas web.','Para aumentar el volumen.','Para cargar la batería.']],['¿Dónde conviene descargar aplicaciones?',0,'Descargá solo desde la tienda oficial de tu celular. Los enlaces desconocidos pueden traer virus.',['Desde tiendas oficiales.','Desde cualquier enlace desconocido.','Desde mensajes de personas que no conocemos.']],['¿Qué debemos hacer con nuestra contraseña?',0,'La contraseña es personal: no se publica ni se manda a nadie.',['Mantenerla privada y no compartirla.','Publicarla para no olvidarla.','Enviar la clave por WhatsApp.']],['Si recibís un mensaje SOSPECHOSO que pide un código, ¿qué hacés?',0,'Nunca compartas el código. Verificá por un canal oficial, llamando vos.',['No lo compartís y verificás por un canal oficial.','Lo enviás rápidamente.','Lo reenviás a todos tus contactos.']],['¿Cómo podemos reconocer un enlace seguro en una página web?',1,'Los enlaces suelen verse azules y subrayados, y las direcciones seguras empiezan con HTTPS. Igual, fijate también que el sitio sea el oficial.',['Porque aparece en color rojo.','Porque suele estar en azul y subrayado, y comienza con HTTPS.','Porque tiene una fotografía.']],['¿Qué debemos hacer para escanear un código QR?',0,'Abrí la cámara del celular y apuntala al código.',['Abrir la cámara del celular y apuntar al código.','Sacar una foto a cualquier objeto.','Apagar y prender el celular.']],["Te llaman del banco y te piden el código que te llegó por mensaje para “cancelar una compra”.",1,"El banco nunca pide códigos. Cortá y llamá vos."],
 ["Tu nieto te escribe de un número nuevo: “Abuela, perdí el celular, mandame plata ya”.",1,"Es un engaño muy común. Llamá a tu nieto a su número de siempre."],
 ["Un vecino que conocés de toda la vida te toca timbre y te devuelve una herramienta prestada.",0,"No pide nada ni te apura. Es normal."],
 ["Alguien en el cajero se ofrece a ayudarte y te pide la tarjeta.",1,"Nunca des la tarjeta. Pedí ayuda a un empleado del banco."]]},
@@ -108,7 +108,7 @@ quiz:[
 ["¿Y esta? https://www.arca.gob.ar",0,"Es el dominio oficial (gob.ar) de ARCA."],
 ["¿Y esta? https://correoargentino-envios.com/seguimiento",1,"Es un dominio ajeno al oficial, que es correoargentino.com.ar."]]}
 };
-var app=document.getElementById("app"),qi=0,done=false,cur=null;
+var app=document.getElementById("app"),qi=0,done=false,cur=null,score=0;
 function esc(s){return s}
 function home(){
 app.innerHTML='<h1>Cuidate Online</h1><div class="hero"><h2>No es tu culpa. Los estafadores son profesionales.</h2><p>Elegí el nivel que más se parezca a vos. Podés cambiar cuando quieras.</p></div>'+
@@ -116,13 +116,13 @@ Object.keys(L).map(function(k){var v=L[k];return '<a class="lvl" href="#'+k+'"><
 '<h2>La regla de oro para todos</h2><div class="rule"><div><b>1. Pará</b>Si te apuran o te asustan, es mala señal.</div><div><b>2. Pensá</b>¿Alguien te pide plata, una clave o un código? Un banco real no.</div><div><b>3. Preguntá</b>Cortá y llamá vos a un familiar o al número oficial.</div></div>';
 }
 function level(k){
-var v=L[k];cur=v;qi=0;
-app.innerHTML='<p><a class="btn alt" href="#inicio">← Volver al inicio</a></p><h1>'+v.t+'</h1><p class="meta">'+v.sub+'</p><div class="hero"><p>'+v.intro+'</p></div>'+
+var v=L[k];cur=v;qi=0;score=0;
+app.innerHTML='<p><a class="btn alt" href="#inicio">← Volver al inicio</a></p><h1>'+v.t+'</h1><p class="meta">'+v.sub+'</p><div class="hero"><p>'+v.intro+'</p></div><p><button type="button" id="goq">Ir directo a la evaluación ↓</button></p>'+
 (v.extra||"")+
 '<h2>Lo más importante</h2><ul>'+v.tips.map(function(t){return '<li>'+t+'</li>'}).join("")+'</ul>'+
 '<h2>Estafas que tenés que conocer</h2>'+
 v.scams.map(function(s){return '<article class="card"><span class="tag">'+s[0]+'</span><h3>'+s[1]+'</h3><p>'+s[2]+'</p><div class="do"><b>Qué hacer:</b> '+s[3]+'</div></article>'}).join("")+
-'<h2>Probate: ¿es estafa o no?</h2><div class="quiz" aria-live="polite"><p class="meta" id="cnt"></p><div class="q" id="qq"></div><div class="btns" id="ch"><button type="button" data-a="1">Es estafa</button><button type="button" class="alt" data-a="0">Parece seguro</button></div><div id="fb"></div><div class="btns" style="margin-top:14px"><button type="button" id="nx" hidden>Siguiente</button></div></div>'+
+'<h2 id="quizh">Evaluación</h2><div class="quiz" aria-live="polite"><p class="meta" id="cnt"></p><div class="q" id="qq"></div><div class="btns" id="ch"><button type="button" data-a="1">Es estafa</button><button type="button" class="alt" data-a="0">Parece seguro</button></div><div id="fb"></div><div class="btns" style="margin-top:14px"><button type="button" id="nx" hidden>Siguiente</button></div></div>'+
 '<div class="help"><h2 style="margin-top:.8em">Si ya caíste, no te quedes callado</h2><ul><li>Llamá enseguida a tu banco al número oficial y pedí bloquear tarjetas y cuentas.</li><li>Cambiá tus claves desde un dispositivo de confianza.</li><li>Hacé la denuncia y contale a un familiar. Pedir ayuda rápido ayuda mucho.</li></ul></div>'+
 '<p style="margin-top:22px"><a class="btn" href="#inicio">← Elegir otro nivel</a></p>';
 showQ();
@@ -130,16 +130,17 @@ showQ();
 function showQ(){
 done=false;var q=cur.quiz[qi];
 document.getElementById("cnt").textContent="Pregunta "+(qi+1)+" de "+cur.quiz.length;
-document.getElementById("qq").textContent=q[0];
+document.getElementById("qq").textContent=q[0];var ch2=document.getElementById("ch");ch2.innerHTML=q[3]?q[3].map(function(o,i){return i;}).sort(function(){return Math.random()-.5;}).map(function(i,p){return '<button type="button" class="alt" style="width:100%;text-align:left" data-a="'+i+'">'+'ABC'.charAt(p)+') '+q[3][i]+'</button>';}).join(''):'<button type="button" data-a="1">Es estafa</button><button type="button" class="alt" data-a="0">Parece seguro</button>';
 document.getElementById("fb").innerHTML="";document.getElementById("nx").hidden=true;
 }
 app.addEventListener("click",function(e){
 var b=e.target.closest("button");if(!b||!cur)return;
+if(b.id==="goq"){document.getElementById("quizh").scrollIntoView({behavior:"smooth"});return;}
 if(b.dataset.a!==undefined&&!done){
-done=true;var q=cur.quiz[qi],ok=Number(b.dataset.a)===q[1];
-document.getElementById("fb").innerHTML='<div class="fb '+(ok?"ok":"no")+'"><b>'+(ok?"¡Muy bien! ":"Cuidado. ")+'</b>'+q[2]+'</div>';
+done=true;var q=cur.quiz[qi],ok=Number(b.dataset.a)===q[1];if(ok)score++;
+document.getElementById("fb").innerHTML='<div class="fb '+(ok?"ok":"no")+'"><b>'+(ok?"¡Muy bien! ":"Cuidado. ")+'</b>'+q[2]+'</div>'+(qi===cur.quiz.length-1?'<div class="fb ok"><b>Tu resultado: '+score+' de '+cur.quiz.length+'</b></div>':'');
 var nx=document.getElementById("nx");nx.hidden=false;nx.textContent=qi<cur.quiz.length-1?"Siguiente":"Volver a empezar";nx.focus();
-}else if(b.id==="nx"){qi=(qi+1)%cur.quiz.length;showQ();}
+}else if(b.id==="nx"){qi=(qi+1)%cur.quiz.length;if(qi===0)score=0;showQ();}
 });
 function route(){
 var h=(location.hash||"").slice(1);cur=null;
