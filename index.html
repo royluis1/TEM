@@ -165,7 +165,7 @@ var nx=document.getElementById("nx");nx.hidden=false;nx.textContent=qi<cur.quiz.
 }else if(b.id==="nx"){qi=(qi+1)%cur.quiz.length;if(qi===0)score=0;showQ();}
 });
 
-var API_URL="https://script.google.com/u/0/home/projects/1SOVNaBHEfwdu956Kppu0hARRSO6p99yTGJfzqCi3K5qmfiBHEhsazcMb/edit";
+var API_URL="https://script.google.com/macros/s/AKfycbzaDFyGqAygLbyyevXVtCQc_LkANqy_7JMY4wOciXKG-c6-2XqJvJ3elAUkMITIwBn72w/exec";
 function abbr(n){var p=String(n).trim().split(/\s+/);return p.length>1?p[0]+" "+p[p.length-1].charAt(0).toUpperCase()+".":p[0];}
 function hasApi(){return API_URL.indexOf("http")===0;}
 function saveForm(){return '<div class="card" id="sv"><p><b>Guardá tu resultado en la tabla de concursantes</b></p><label for="nm">Tu nombre y apellido</label><input id="nm" type="text" maxlength="40" autocomplete="name" placeholder="Escribí tu nombre y apellido"><p class="meta">En la tabla se verá tu nombre y la inicial de tu apellido.</p><button type="button" id="savebtn">Guardar mi resultado</button></div>';}
