@@ -165,40 +165,35 @@ var nx=document.getElementById("nx");nx.hidden=false;nx.textContent=qi<cur.quiz.
 }else if(b.id==="nx"){qi=(qi+1)%cur.quiz.length;if(qi===0)score=0;showQ();}
 });
 
-function saveForm(){return '<div class="card" id="sv"><p><b>Guardá tu resultado en la tabla de concursantes</b></p><label for="nm">Tu nombre</label><input id="nm" type="text" maxlength="40" autocomplete="name" placeholder="Escribí tu nombre"><p class="meta">Tu nombre y tu puntaje se verán en la tabla.</p><button type="button" id="savebtn">Guardar mi resultado</button></div>';}
+var API_URL="https://script.google.com/u/0/home/projects/1SOVNaBHEfwdu956Kppu0hARRSO6p99yTGJfzqCi3K5qmfiBHEhsazcMb/edit";
+function abbr(n){var p=String(n).trim().split(/\s+/);return p.length>1?p[0]+" "+p[p.length-1].charAt(0).toUpperCase()+".":p[0];}
+function hasApi(){return API_URL.indexOf("http")===0;}
+function saveForm(){return '<div class="card" id="sv"><p><b>Guardá tu resultado en la tabla de concursantes</b></p><label for="nm">Tu nombre y apellido</label><input id="nm" type="text" maxlength="40" autocomplete="name" placeholder="Escribí tu nombre y apellido"><p class="meta">En la tabla se verá tu nombre y la inicial de tu apellido.</p><button type="button" id="savebtn">Guardar mi resultado</button></div>';}
 function saveResult(name,sc,tot){
-var rec={name:name,k:curKey,s:sc,t:tot,ts:Date.now()},where="local";
+var rec={name:name,k:curKey,s:sc,t:tot,ts:Date.now()};
 try{var arr=JSON.parse(localStorage.getItem("tem_res")||"[]");arr.push(rec);localStorage.setItem("tem_res",JSON.stringify(arr.slice(-300)));}catch(e){}
-if(!(dbP&&uid))return Promise.resolve(where);
-var ref=dbP.doc("resultados/"+uid);
-return ref.get().then(function(snap){var d=snap.exists?(snap.data()||{}):{},n=d.niveles||{},pv=n[rec.k];
-if(!pv||rec.s>=pv.s)n[rec.k]={s:rec.s,t:rec.t,ts:rec.ts};
-return ref.set({name:name,niveles:n});}).then(function(){return "shared";}).catch(function(){return where;});
+if(!hasApi())return Promise.resolve("local");
+return fetch(API_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({name:name,k:rec.k,s:sc,t:tot})}).then(function(){return "shared";}).catch(function(){return "local";});
 }
-function rowsFromLocal(){var m={};try{JSON.parse(localStorage.getItem("tem_res")||"[]").forEach(function(r){var key=r.name.toLowerCase()+"|"+r.k;if(!m[key]||r.s>=m[key].s)m[key]=r;});}catch(e){}return Object.keys(m).map(function(k){return m[k];});}
+function rowsFromLocal(){var m={};try{JSON.parse(localStorage.getItem("tem_res")||"[]").forEach(function(r){var key=r.name.toLowerCase()+"|"+r.k;if(!m[key]||r.s>=m[key].s)m[key]=r;});}catch(e){}return Object.keys(m).map(function(k){var r=m[k];return {name:abbr(r.name),k:r.k,s:r.s,t:r.t,ts:r.ts};});}
 function draw(rows,note){
 var nt=document.getElementById("tnote"),box=document.getElementById("tbody");if(!nt||!box)return;
 nt.textContent=note;
-rows.sort(function(a,b){return (b.s/b.t)-(a.s/a.t)||b.s-a.s||a.ts-b.ts;});rowsNow=rows;
+rows.sort(function(a,b){return (b.s/b.t)-(a.s/a.t)||b.s-a.s||a.ts-b.ts;});
 if(!rows.length){box.innerHTML='<div class="card">Todavía no hay resultados. ¡Sé la primera persona en rendir la evaluación!</div>';return;}
 box.innerHTML='<table><thead><tr><th>#</th><th>Nombre</th><th>Nivel</th><th>Puntaje</th></tr></thead><tbody>'+rows.map(function(r,i){return '<tr><td>'+(i+1)+'</td><td>'+esc(r.name)+'</td><td>'+(L[r.k]?'Nivel '+L[r.k].n:'')+'</td><td class="score">'+r.s+'/'+r.t+'</td></tr>';}).join('')+'</tbody></table>';
 }
 function table(){
-app.innerHTML='<p><a class="btn alt" href="#inicio">← Volver al inicio</a></p><h1>🏆 Tabla de concursantes</h1><p class="meta" id="tnote"></p><div id="tbody" style="overflow-x:auto"></div><p style="margin-top:18px"><button type="button" id="dl" class="alt" hidden>Descargar tabla (CSV)</button></p>';
-if(dbP){unsub=dbP.collection("resultados").onSnapshot(function(snap){var rows=[];snap.docs.forEach(function(d){var v=d.data()||{},n=v.niveles||{};Object.keys(n).forEach(function(k){rows.push({name:String(v.name||"Sin nombre"),k:k,s:n[k].s,t:n[k].t,ts:n[k].ts||0});});});draw(rows,"Tabla compartida con todas las personas que abren esta página con su cuenta.");},function(){draw(rowsFromLocal(),"No se pudo leer la tabla compartida. Se muestran los resultados de este dispositivo.");});}
-else draw(rowsFromLocal(),"Resultados guardados en este dispositivo.");
-if(window.claude&&claude.use)claude.use("downloads").then(function(d){var b=document.getElementById("dl");if(!d||!b)return;b.hidden=false;b.onclick=function(){
-function c(x){x=String(x);if("=+-@".indexOf(x.charAt(0))>=0)x="'"+x;return '"'+x.replace(/"/g,'""')+'"';}
-var csv="Nombre,Nivel,Puntaje\n"+rowsNow.map(function(r){return [c(r.name),c(L[r.k]?"Nivel "+L[r.k].n:""),c(r.s+"/"+r.t)].join(",");}).join("\n");
-d.save({filename:"tabla-concursantes.csv",data:csv}).catch(function(){});};}).catch(function(){});
+app.innerHTML='<p><a class="btn alt" href="#inicio">← Volver al inicio</a></p><h1>🏆 Tabla de concursantes</h1><p class="meta" id="tnote">Cargando…</p><div id="tbody" style="overflow-x:auto"></div>';
+if(!hasApi()){draw(rowsFromLocal(),"Resultados guardados en este dispositivo.");return;}
+fetch(API_URL+"?action=list").then(function(r){return r.json();}).then(function(j){draw(j.rows||[],"Resultados de todas las personas que rindieron.");}).catch(function(){draw(rowsFromLocal(),"No se pudo cargar la tabla general. Se muestran los resultados de este dispositivo.");});
 }
-function initDb(){try{if(!(window.claude&&claude.use))return;Promise.all([claude.use("user"),claude.use("db")]).then(function(r){if(!(r[0]&&r[1]))return;return r[0].id().then(function(id){if(id){uid=id;dbP=r[1];if(location.hash==="#tabla"){if(unsub){unsub();unsub=null;}table();}}});}).catch(function(){});}catch(e){}}
 function route(){
 var h=(location.hash||"").slice(1);cur=null;if(unsub){unsub();unsub=null;}
 if(h==="tabla")table();else if(L[h])level(h);else home();
 window.scrollTo(0,0);
 }
-window.addEventListener("hashchange",route);route();initDb();
+window.addEventListener("hashchange",route);route();
 var size=112.5;
 document.getElementById("bigger").addEventListener("click",function(){size=size>=150?112.5:size+12.5;document.documentElement.style.fontSize=size+"%"});
 })();
