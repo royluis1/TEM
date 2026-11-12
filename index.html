@@ -108,6 +108,16 @@ scams:[
 ["Soporte técnico","“Tu computadora tiene virus”","Una ventana o llamada te dice que estás infectado y te pide instalar un programa para “arreglarlo”.","Cerrá la ventana. Ninguna empresa te llama por tu computadora. Nunca instales programas que te pidan."],
 ["Wi-Fi público","La red gratis de la plaza o el bar","En redes abiertas pueden espiar lo que hacés.","No entres al banco con Wi-Fi público. Usá los datos de tu celular."]],
 quiz:[
+['¿Qué ayuda a sacar una foto más nítida con el celular?',0,'Con el lente limpio y buena luz natural la foto sale más clara y sin ruido.',['Limpiar el lente y usar luz natural.','Usar siempre el zoom al máximo.','Sacarla con poca luz.']],
+['¿Para qué sirve la cuadrícula de la cámara?',2,'La cuadrícula ayuda a centrar el producto y a mantener la foto derecha. Las líneas no se ven en la foto final.',['Para que las líneas queden dibujadas en la foto.','Para ahorrar batería.','Para centrar el producto y mantener la foto derecha.']],
+['¿En qué formato conviene grabar videos para Instagram y TikTok?',1,'Estas redes están pensadas para ver en vertical, a pantalla completa.',['En horizontal.','En vertical.','En cualquier posición, da lo mismo.']],
+['¿Qué permite hacer la opción “Dividir” en CapCut?',0,'Dividir corta un clip en dos partes, para sacar lo que sobra o reordenar.',['Cortar un clip en dos partes.','Descargar el video.','Cambiar el tamaño del celular.']],
+['¿Qué es una plantilla de Canva?',2,'Es un diseño prearmado en el que solo cambiás las fotos y los textos.',['Un tipo de cuenta de Instagram.','Una forma de conectarse a internet.','Un diseño prearmado en el que se cambian fotos y textos.']],
+['¿Qué formato de Instagram puede llegar a personas que aún no te siguen?',1,'Los reels se muestran a gente nueva. Las historias y la foto de perfil llegan sobre todo a quienes ya te siguen.',['La placa de historia.','El reel.','La foto de perfil.']],
+['¿Qué es un “hook” en una publicación?',0,'El hook es la frase o imagen del comienzo que hace que la gente se detenga a mirar.',['Una frase o imagen que capta la atención al comienzo.','Un enlace para descargar una aplicación.','La contraseña de la cuenta.']],
+['¿Para qué sirve un CTA o llamado a la acción?',2,'El CTA le dice al público qué queremos que haga: escribir, comprar, seguirnos.',['Para editar videos más rápido.','Para cambiar el tamaño de las imágenes.','Para indicar qué queremos que haga el público.']],
+['¿Qué ventaja tiene una cuenta profesional de Instagram?',1,'Una cuenta profesional ofrece estadísticas y botones de contacto.',['Funciona sin conexión a internet.','Ofrece estadísticas y botones de contacto.','Borra los comentarios automáticamente.']],
+['¿Qué herramienta de WhatsApp Business muestra productos con foto y precio?',0,'El catálogo muestra tus productos con foto y precio.',['El catálogo.','Las etiquetas.','La copia de seguridad.']],
 ["Recibís un SMS: “Tu envío está retenido, pagá $900 acá” con un enlace raro.",1,"Es phishing. No toques el enlace."],
 ["Vendés un sillón y el comprador te manda una captura de la transferencia. Todavía no ves la plata en tu cuenta.",1,"No entregues nada hasta ver la plata en tu cuenta. Las capturas se falsifican."],
 ["Tu banco te avisa por la app oficial, que abrís vos, que actualizaron los términos. No te piden nada más.",0,"Si lo ves en la app oficial y no te piden claves, es normal."],
@@ -165,7 +175,7 @@ var nx=document.getElementById("nx");nx.hidden=false;nx.textContent=qi<cur.quiz.
 }else if(b.id==="nx"){qi=(qi+1)%cur.quiz.length;if(qi===0)score=0;showQ();}
 });
 
-var API_URL="https://script.google.com/macros/s/AKfycbzaDFyGqAygLbyyevXVtCQc_LkANqy_7JMY4wOciXKG-c6-2XqJvJ3elAUkMITIwBn72w/exec";
+var API_URL="PEGAR_AQUI_LA_URL_DEL_SCRIPT";
 function abbr(n){var p=String(n).trim().split(/\s+/);return p.length>1?p[0]+" "+p[p.length-1].charAt(0).toUpperCase()+".":p[0];}
 function hasApi(){return API_URL.indexOf("http")===0;}
 function saveForm(){return '<div class="card" id="sv"><p><b>Guardá tu resultado en la tabla de concursantes</b></p><label for="nm">Tu nombre y apellido</label><input id="nm" type="text" maxlength="40" autocomplete="name" placeholder="Escribí tu nombre y apellido"><p class="meta">En la tabla se verá tu nombre y la inicial de tu apellido.</p><button type="button" id="savebtn">Guardar mi resultado</button></div>';}
