@@ -149,7 +149,7 @@ Object.keys(L).map(function(k){var v=L[k];return '<a class="lvl" href="#'+k+'"><
 '<h2>La regla de oro para todos</h2><div class="rule"><div><b>1. Pará</b>Si te apuran o te asustan, es mala señal.</div><div><b>2. Pensá</b>¿Alguien te pide plata, una clave o un código? Un banco real no.</div><div><b>3. Preguntá</b>Cortá y llamá vos a un familiar o al número oficial.</div></div>';
 }
 var DRIVE_FOLDER="https://drive.google.com/drive/folders/1_9sMiBIDbo_qileEQKWPhSfTTAGBYd4D";
-var VIDEOS={"nivel-2":[{t:"Aprendiendo a usar Canva",id:""},{t:"Aprendiendo a usar CapCut",id:""}]};
+var VIDEOS={"nivel-2":[{t:"Aprendiendo a usar Canva",id:"12lG4SQbdlR10ILjpJcWw4xux1YrUpZaw"},{t:"Aprendiendo a usar CapCut",id:"18ASSySboJFhHqZyI4tAe1mM7uwjSuHa9"}]};
 function vids(k){var a=VIDEOS[k];if(!a)return "";return '<h2>Videos para aprender</h2>'+a.map(function(v){return '<article class="card"><h3>🎬 '+v.t+'</h3>'+(v.id?'<div class="vid"><iframe src="https://drive.google.com/file/d/'+v.id+'/preview" title="'+v.t+'" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe></div>':'<p class="meta">Mirá este video en la carpeta del plan.</p><a class="btn" href="'+DRIVE_FOLDER+'" target="_blank" rel="noopener">▶ Ver en Drive</a>')+'</article>';}).join("");}
 function level(k){
 var v=L[k];cur=v;curKey=k;qi=0;score=0;
