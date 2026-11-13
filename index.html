@@ -141,8 +141,7 @@ quiz:[
 ["¿Y esta? https://www.arca.gob.ar",0,"Es el dominio oficial (gob.ar) de ARCA."],
 ["¿Y esta? https://correoargentino-envios.com/seguimiento",1,"Es un dominio ajeno al oficial, que es correoargentino.com.ar."]]}
 };
-var app=document.getElementById("app"),qi=0,done=false,cur=null,score=0,curKey="",dbP=null,uid=null,unsub=null,rowsNow=[];
-function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c];});}
+
 function home(){
 app.innerHTML='<h1>Cuidate Online</h1><div class="hero"><h2>No es tu culpa. Los estafadores son profesionales.</h2><p>Elegí el nivel que más se parezca a vos. Podés cambiar cuando quieras.</p></div>'+
 Object.keys(L).map(function(k){var v=L[k];return '<a class="lvl" href="#'+k+'"><span class="n">Nivel '+v.n+'</span><h3>'+v.t.split(" · ")[1]+'</h3><p>'+v.sub+'</p></a>'}).join("")+
@@ -150,10 +149,16 @@ Object.keys(L).map(function(k){var v=L[k];return '<a class="lvl" href="#'+k+'"><
 }
 var DRIVE_FOLDER="https://drive.google.com/drive/folders/1_9sMiBIDbo_qileEQKWPhSfTTAGBYd4D";
 var VIDEOS={"nivel-2":[{t:"Aprendiendo a usar Canva",id:"12lG4SQbdlR10ILjpJcWw4xux1YrUpZaw"},{t:"Aprendiendo a usar CapCut",id:"18ASSySboJFhHqZyI4tAe1mM7uwjSuHa9"}]};
+function pres(){
+ return '<h2>📚 Presentación de la Clase 2</h2>'+
+ '<article class="card"><p>Material de apoyo de la Clase 2. Podés verla desde acá o abrirla en Canva.</p>'+
+ '<div class="vid"><iframe src="https://www.canva.com/design/DAHance1Hjc/EXdm4wyZSIes2twS4hokLQ/view?embed" title="Presentación de la Clase 2" loading="lazy" allowfullscreen></iframe></div>'+
+ '<p style="margin-top:14px"><a class="btn" href="https://www.canva.com/design/DAHance1Hjc/EXdm4wyZSIes2twS4hokLQ/view?utm_content=DAHance1Hjc&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h4d62ed1ee2" target="_blank" rel="noopener">▶ Abrir presentación en Canva</a></p></article>';
+}
 function vids(k){var a=VIDEOS[k];if(!a)return "";return '<h2>Videos para aprender</h2>'+a.map(function(v){return '<article class="card"><h3>🎬 '+v.t+'</h3>'+(v.id?'<div class="vid"><iframe src="https://drive.google.com/file/d/'+v.id+'/preview" title="'+v.t+'" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe></div>':'<p class="meta">Mirá este video en la carpeta del plan.</p><a class="btn" href="'+DRIVE_FOLDER+'" target="_blank" rel="noopener">▶ Ver en Drive</a>')+'</article>';}).join("");}
 function level(k){
 var v=L[k];cur=v;curKey=k;qi=0;score=0;
-app.innerHTML='<p><a class="btn alt" href="#inicio">← Volver al inicio</a></p><h1>'+v.t+'</h1><p class="meta">'+v.sub+'</p><div class="hero"><p>'+v.intro+'</p></div><p><button type="button" id="goq">Ir directo a la evaluación ↓</button></p>'+
+app.innerHTML='<p><a class="btn alt" href="#inicio">← Volver al inicio</a></p><h1>'+v.t+'</h1><p class="meta">'+v.sub+'</p><div class="hero"><p>'+v.intro+'</p></div>'+(k==="nivel-2"?pres():"")+'<p><button type="button" id="goq">Ir directo a la evaluación ↓</button></p>'+
 (v.extra||"")+
 '<h2>Lo más importante</h2><ul>'+v.tips.map(function(t){return '<li>'+t+'</li>'}).join("")+'</ul>'+
 '<h2>Estafas que tenés que conocer</h2>'+
